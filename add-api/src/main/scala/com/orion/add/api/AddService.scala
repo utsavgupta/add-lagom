@@ -34,7 +34,7 @@ trait AddService extends Service {
       .withTopics(
         topic(AddService.TOPIC_NAME, additionTopic _)
           .addProperty(KafkaProperties.partitionKeyStrategy,
-            PartitionKeyStrategy[CurriedWith](_.id))
+            PartitionKeyStrategy[CurriedWith](_ => "constant"))
       )
       .withAutoAcl(true)
   }
@@ -52,7 +52,7 @@ object CurryWith {
   implicit val format: Format[CurryWith] = Json.format[CurryWith]
 }
 
-case class CurriedWith(id: String, number: Int)
+case class CurriedWith(number: Int)
 
 object CurriedWith {
   implicit val format: Format[CurriedWith] = Json.format[CurriedWith]

@@ -30,10 +30,15 @@ class NumberEntity extends PersistentEntity {
           ctx.reply(Done)
         }
     }.onReadOnlyCommand[AddNumber, String]{
-      case (AddNumber(number), ctx, state) =>
+      case (AddNumber(number), ctx, state) => {
+        println(s"Current state: ${state}, adding number: ${number}")
         ctx.reply(s"${num + number}")
+      }
     }.onEvent {
-      case (CurriedWith(number), state) => NumberState(number, LocalDateTime.now().toString)
+      case (CurriedWith(number), state) => {
+        println(s"Old state: ${state}, New State: ${NumberState(number, LocalDateTime.now().toString)}")
+        NumberState(number, LocalDateTime.now().toString)
+      }
     }
   }
 }

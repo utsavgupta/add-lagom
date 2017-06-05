@@ -13,13 +13,13 @@ import com.orion.add.api.AddService
   */
 class AddServiceImpl(persistentEntityRegistry: PersistentEntityRegistry) extends AddService {
   override def add(): ServiceCall[api.AddNumber, String] = ServiceCall { request =>
-    val ref = persistentEntityRegistry.refFor[NumberEntity](request.number.toString)
+    val ref = persistentEntityRegistry.refFor[NumberEntity]("constant")
 
     ref.ask(AddNumber(request.number))
   }
 
   override def curry(): ServiceCall[api.CurryWith, Done] = ServiceCall { request =>
-    val ref = persistentEntityRegistry.refFor[NumberEntity](request.number.toString)
+    val ref = persistentEntityRegistry.refFor[NumberEntity]("constant")
 
     ref.ask(CurryWith(request.number))
   }
@@ -33,7 +33,7 @@ class AddServiceImpl(persistentEntityRegistry: PersistentEntityRegistry) extends
 
   private def convertEvent(numberEvent: EventStreamElement[NumberEvent]): api.CurriedWith = {
     numberEvent.event match {
-      case CurriedWith(num) => api.CurriedWith(numberEvent.entityId, num)
+      case CurriedWith(num) => api.CurriedWith(num)
     }
   }
 }
