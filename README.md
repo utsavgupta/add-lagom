@@ -1,2 +1,2 @@
 # add-lagom
-This is a simple hello world-esque application to checkout the very basics of the Lagom framework. The project is based on the Hello lagom project found on the Lightbend website.
+This is a simple hello world-esque application to try out the very basics of the Lagom framework. The project is based on the Hello Lagom project found on the Lightbend website.
